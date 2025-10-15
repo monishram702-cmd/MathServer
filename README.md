@@ -262,17 +262,45 @@ calculator.html
 </body>
 </html>
 
+views.py
+
+from django.shortcuts import render
+
+def home(request):
+    return render(request, 'powerapp/home.html')
+
+def calculator(request):
+    power = None
+    if request.method == 'POST':
+        intensity = float(request.POST.get('intensity', 0))
+        resistance = float(request.POST.get('resistance', 0))
+        power = round(intensity ** 2 * resistance, 2)
+    return render(request, 'powerapp/calculator.html', {'power': power})
+
+urls.py
+
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.home, name='home'),
+    path('calculator.html/', views.calculator, name='calculator'),
+]
+
 ```
 
 
 
 ## SERVER SIDE PROCESSING:
 
-![alt text](<Screenshot (28).png>)
+![screenshot 25](https://github.com/user-attachments/assets/6d1e18f9-b3e6-4772-9355-889c82f09f86)
+
 
 ## HOMEPAGE:
 
-![alt text](<Screenshot (27).png>)
+<img width="1920" height="1080" alt="Screenshot (27)" src="https://github.com/user-attachments/assets/d22ed9e0-86d2-40bf-8cf8-fb38d2c0ba01" />
+
+<img width="1920" height="1080" alt="Screenshot (28)" src="https://github.com/user-attachments/assets/d68e290d-86b1-472c-a6f4-f362c4b18910" />
 
 ## RESULT:
 The program for performing server side processing is completed successfully.
